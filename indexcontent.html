@@ -3,6 +3,116 @@
   <H2>Radio Frequency Identification (RFID)</H2>
  </HEADER>
  
+  <SECTION ID="Section_13">
+  <H3>Week 12</H3>
+</H3>
+  <p>
+   <ul>
+   <li><b>Build Instructions</b></li>
+   <li>1. System Diagram of the Lumi Light prototype</li>
+   <img src="https://i.imgur.com/JIL8yQ6.png" alt="HTML5 Icon" style="max-width: 521px; min-height: 521px;">
+   <li>2. Bill of Materials/Budget</li>
+	   <ul>
+	   <li>The main components of this build will be the Raspberry Pi 3, a NeoPixel ring, and an RFID set. There are other materials that will be used to connect these components together. The final budget plan of
+	   my prototype can be found <a href="https://github.com/n01114847/SensorEffector/raw/master/documentation/BudgetPlan.xlsx">here</a></li>
+	   <li>
+	   </ul>
+	<li>3. Time Commitment</li>
+	   <ul>
+	   <li>The committed time to conduct my research took merely an hour to produce my final build</li>
+	   <li>The materials were ordered from Amazon and Creatron. The process of receiving all the materials took 2 days of Amazon shipping, and a day to go in-store at Creatron to buy my parts</li>
+	   <li>To hook up my Raspberry Pi took no more than 30 minutes of my time</li>
+	   <li>Assembling my RFID varied between 2-3 hours, my reasoning was figuring out that it had a bad soldering job. As a perfect run, this can be done between 30 minutes to an hour after soldering it and connecting
+	   the RFID to the correct GPIO pin-out</li>
+	   <li>Connecting the NeoPixel ring took no more than 30 minutes to do as the soldering was quick, and had few GPIO pin-out to plug into</li>
+	   <li>Creating the code took a good 2-4 hours to work on. Although python was not a part of my knowledge, picking it up was easy. The code I was rearranging was difficult to complete as the RGB lights would not change
+	   to my desired settings. In terms of compiling python packages, downloading GitHub repositories, and reconfiguring the Raspberry Pi to work with my prototype, the process should have taken approximately 2 hours if I
+	   didn't decide to change the RGB lights</li>
+	   <li><b>Total commitment (Excl. Shipping): 5-8 hours</b></li>
+	   </ul>
+    <li>4. Soldering</li>	
+		<ul>
+		<li>NeoPixel Ring: Solder one end of a M-M connector to the NeoPixel Ring. Repeat this process for 5V, GND, and DI.
+		<li>RFID Sensor: Place the bent or straight pin through the RFID sensor's pin-out holes, make sure to do this to refrain from <b>technical problems.</b> Solder one end of a M-M connector to the RFID sensor. Repeat this 
+			process for all pins except RQ.
+		</ul>
+	<li>5. Mechanical Assembly</li>
+		<ul>
+		<li>Raspberry PI 3: Plug power supply from an outlet to the Raspberry Pi 3. After booting up, complete the OS installation.</li>
+		<li>RFID Sensor:  Connect one end of the connectors to the corresponding GPIO pin-out. Refer to diagram <a href="https://cdn.pimylifeup.com/wp-content/uploads/2017/08/RFID-Fritz.jpg">here</a> and 
+		<a href="https://cdn.pimylifeup.com/wp-content/uploads/2017/08/RFID-GPIO-Connection.jpg">here</a></li>
+			<ul>
+			<li>SDA connects to Pin 24. (GPIO08)</li>
+			<br>
+			<li>SCK connects to Pin 23. (GPIO11)</li>
+			<br>
+			<li>MOSI connects to Pin 19. (GPIO10)</li>
+			<br>
+			<li>MISO connects to Pin 21. (GPIO09)</li>
+			<br>
+			<li>GND connects to Pin 6. (Ground)</li>
+			<br>
+			<li>RST connects to Pin 22. (GPIO25)</li>
+			<br>
+			<li>3.3v connects to Pin 1. (3.3V)</li>
+			<li>Referral Link: https://pimylifeup.com/raspberry-pi-rfid-rc522/</li>
+			</ul>
+		<li>NeoPixel Ring:  After completion, connect one end of the connectors to the corresponding GPIO pin-out. Refer to pin-out here:</li>	
+			<ul>
+			<li>DI connects to Pin 12.(GPIO18)</li>
+			<br>
+			<li>5v connects to Pin 1. (It won't short)</li>
+			<br>
+			<li>GND connects to Pin 6. (Ground)</li>
+			</ul>
+		<li>Breadboard: The breadboard is used to hold the two sensors that require the same Raspberry Pi GPIO pin. Refer to diagram <a href="https://i.imgur.com/HwUAPRh.png">here</a></li>
+		</ul>
+	<li>6. Power Up</li>
+		<ul>
+		<li>Connect all these pins while the Raspberry is not yet booted up. <i>Tip: power this up, make sure the GND pin is placed in first before the 3.3V pin is.</i> Once all the configurations have been done, the 
+		Raspberry Pi can now be connected.</li>
+		</ul>
+	<li>7. Production Testing</li>
+		<ul>
+		<li>After powering up the Raspberry Pi, the RFID sensor should be lit indicating that it is on and ready for scanning. Unfortunately, the NeoPixel ring has no production test other than unit testing.</li>
+		</ul>	
+	<li>8. Unit Testing</li>
+		<ul>
+		<li>To test the RFID, configurations must be made. Here is the step-by step guide:
+			<ul>
+			<li>Open up terminal on Raspberry Pi to setup Raspbian and Python, follow the commands used. (After reboot, reopen terminal again to proceed)</li>
+			<li>sudo raspi-config</li>
+			<li>sudo reboot</li>
+			<li>lsmod | grep spi	(From here, check to see if spi_bcm2835. If not, refer to referral guide)</li>
+			<li>sudo nano /boot/config.txt	(Add “dtparam=spi=on” to the bottom of the file and then save it by pressing CTRL + X and confirm)</li>
+			<li>sudo apt-get update</li>
+			<li>sudo apt-get upgrade</li>
+			<li>sudo apt-get install python2.7-dev<li>
+			<li>cd ~</li>
+			<li>git clone https://github.com/lthiery/SPI-Py.git</li>
+			<li>cd ~/SPI-Py</li>
+			<li>sudo python setup.py install</li>
+			<li>cd ~</li>
+			<li>https://github.com/mxgxw/MFRC522-python</li>
+			<li>cd ~/MFRC522-python</li>
+			<li>sudo python Read.py (Test your sensor by using the tag, if you get lines of code saying card detected, it works)</li>
+			<br>
+			<li>Referral Guide: https://pimylifeup.com/raspberry-pi-rfid-rc522/</li>
+			
+			</ul>
+		<li>To test the NeoPixel Ring, download the repository to your Raspberry PI: https://github.com/jgarff/rpi_ws281x.git</li>
+		<li>Refer to RFID to navigate on the terminal. When doing so, open the repository and run the python code</li>
+		<li>cd ~/rpi_ws281x/python/examples/</li>
+		<li>sudo python strandtest.py</li>
+		</ul>		
+	<li>7. Is This Project Reproducible?</li>
+		<ul>
+		<li>As I have done trial and error twice, this instructions makes the prototype working.</li>
+		</ul>	
+	</p>
+   </ul>
+ </SECTION>
+ 
  <SECTION ID="Section_12">
   <H3>Week 11</H3>
 </H3>
@@ -59,7 +169,6 @@
    <li>Placard</li>
  	<img src="https://i.imgur.com/r2cMGAX.png" alt="HTML5 Icon" style="max-width: 521px; min-height: 521px;">
 	<li><a href="https://github.com/n01114847/SensorEffector/raw/master/documentation/30%20second%20script.docx">30 Second Script</a></li>
-	<!--https://i.imgur.com/MaCrxsI.png-->
    </ul>
   </p>
  </SECTION>
@@ -102,7 +211,6 @@
   </p>
  </SECTION>
  
-<<<<<<< HEAD
   <SECTION ID="Section_5">
   <H3>Strike Week (Oct.9-Nov.21)
 </H3>
